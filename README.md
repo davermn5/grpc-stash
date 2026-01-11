@@ -3,15 +3,17 @@
 
 ## Installation Instructions
 
-### VirtualBox & Vagrant - For Same Server (hosts server and client)
+### VirtualBox & Vagrant - For the Same Server (hosts both server and client)
 1. vagrant up
 2. vagrant ssh
-3. cd /vagrant/app/
-4. npm install
-5. cd /vagrant/app/routeguide/dynamic_codegen
-6. node /vagrant/app/routeguide/dynamic_codegen/route_guide_server.js
-7. (Then, in a separate terminal): node /vagrant/app/routeguide/dynamic_codegen/route_guide_client.js 
+3. cd /vagrant/app/routeguide/dynamic_codegen
+4. node /vagrant/app/routeguide/dynamic_codegen/route_guide_server.js
+5. (Then, in a separate terminal in the same project directory): vagrant ssh
+    - node /vagrant/app/routeguide/dynamic_codegen/route_guide_client.js 
 
 
-### For Different Servers (host separate server and client)
-* For both server and client files, update the IPv4 and port, then Save.
+### (optional) For Different Servers (each acting as client)
+  * Perform Steps 1-5 above
+  * nano '/vagrant/app/routeguide/dynamic_codegen/route_guide_client.js'
+    - Locate the remote (target) IPv4 and port settings, then Ctrl+O (save).
+  * node /vagrant/app/routeguide/dynamic_codegen/route_guide_client.js 
