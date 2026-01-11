@@ -1,4 +1,4 @@
-![Static Badge](https://img.shields.io/badge/github-repo-blue?style=for-the-badge&logo=github)  ![Static Badge](https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge)
+![Static Badge](https://img.shields.io/badge/github-repo-blue?style=plastic&logo=github)  ![Static Badge](https://img.shields.io/badge/build-passing-brightgreen?style=plastic)
 
 
 ## Installation Instructions
