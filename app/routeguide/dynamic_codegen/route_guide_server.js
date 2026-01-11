@@ -21,10 +21,11 @@ var routeguide = grpc.loadPackageDefinition(packageDefinition).routeguide;
 var COORD_FACTOR = 1e7;
 
 /**
- * For simplicity, a point is a record type that looks like
- * {latitude: number, longitude: number}, and a feature is a record type that
- * looks like {name: string, location: point}. feature objects with name===''
- * are points with no feature.
+ * A point represents a geospatial reference object, for example:
+ * {latitude: number, longitude: number}
+ * 
+ * A landmark represents an object with a corresponding name and point (location), for example:
+ * {name: string, location: point}. However, if the name==='' then its a point with no known landmark.
  */
 
 /**
@@ -33,14 +34,14 @@ var COORD_FACTOR = 1e7;
 var feature_list = [];
 
 /**
- * Get a feature object at the given point, or creates one if it does not exist.
+ * Get a landmark object at the given point, or creates one if it does not exist.
  * @param {point} point The point to check
- * @return {feature} The feature object at the point. Note that an empty name
- *     indicates no feature
+ * @return {feature} The landmark object at the point. Note that an empty name
+ *     indicates no landmark available to go off of.
  */
 function checkFeature(point) {
   var feature;
-  // Check if there is already a feature object for the given point
+  // Checks if a landmark is known for the provided point.
   for (var i = 0; i < feature_list.length; i++) {
     feature = feature_list[i];
     if (feature.location.latitude === point.latitude &&
@@ -57,8 +58,7 @@ function checkFeature(point) {
 }
 
 /**
- * getFeature request handler. Gets a request with a point, and responds with a
- * feature object indicating whether there is a feature at that point.
+ * Gets the landmark for a given known point
  * @param {EventEmitter} call Call object for the handler to process
  * @param {function(Error, feature)} callback Response callback
  */
@@ -67,8 +67,7 @@ function getFeature(call, callback) {
 }
 
 /**
- * listFeatures request handler. Gets a request with two points, and responds
- * with a stream of all features in the bounding box defined by those points.
+ * Acts as a container to pull-in the surface area of 2 given points and streams back the known landmarks.
  * @param {Writable} call Writable stream for responses with an additional
  *     request property for the request value.
  */
@@ -79,7 +78,6 @@ function listFeatures(call) {
   var right = _.max([lo.longitude, hi.longitude]);
   var top = _.max([lo.latitude, hi.latitude]);
   var bottom = _.min([lo.latitude, hi.latitude]);
-  // For each feature, check if it is in the given bounding box
   _.each(feature_list, function(feature) {
     if (feature.name === '') {
       return;
@@ -95,7 +93,7 @@ function listFeatures(call) {
 }
 
 /**
- * Calculate the distance between two points using the "haversine" formula.
+ * Analyzes the distance between 2 points using the Haversine formula.
  * The formula is based on http://mathforum.org/library/drmath/view/51879.html.
  * @param start The starting point
  * @param end The end point
@@ -121,12 +119,14 @@ function getDistance(start, end) {
 }
 
 /**
- * recordRoute handler. Gets a stream of points, and responds with statistics
- * about the "trip": number of points, number of known features visited, total
- * distance traveled, and total time spent.
- * @param {Readable} call The request point stream.
- * @param {function(Error, routeSummary)} callback The callback to pass the
- *     response to
+ * Gathers the client-stream of points
+ * Returns the stats for the stream (collection of points), for example shows:
+ * -Number of points
+ * -Number of known landmarks visited
+ * -Total distance traveled
+ * -Total time spent
+ * @param {Readable} call The point stream
+ * @param {function(Error, routeSummary)} callback invokes the callback function to pass the response to.
  */
 function recordRoute(call, callback) {
   var point_count = 0;

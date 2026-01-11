@@ -24,9 +24,8 @@ var client = new routeguide.RouteGuide('localhost:50051',
 var COORD_FACTOR = 1e7;
 
 /**
- * Run the getFeature demo. Calls getFeature with a point known to have a
- * feature and a point known not to have a feature.
- * @param {function} callback Called when this demo is complete
+ * Returns a landmark name based on its geospatial point.
+ * @param {function} callback is invoked after it finishes the transaction.
  */
 function runGetFeature(callback) {
   var next = _.after(2, callback);
@@ -59,10 +58,8 @@ function runGetFeature(callback) {
 }
 
 /**
- * Run the listFeatures demo. Calls listFeatures with a rectangle containing all
- * of the features in the pre-generated database. Prints each response as it
- * comes in.
- * @param {function} callback Called when this demo is complete
+ * Returns a list of all landmarks for a particular range as defined within the function currently.
+ * @param {function} callback is invoked after it finishes the streamed transaction series.
  */
 function runListFeatures(callback) {
   var rectangle = {
@@ -86,10 +83,8 @@ function runListFeatures(callback) {
 }
 
 /**
- * Run the recordRoute demo. Sends several randomly chosen points from the
- * pre-generated feature database with a variable delay in between. Prints the
- * statistics when they are sent from the server.
- * @param {function} callback Called when this demo is complete
+ * Locates a random set of landmarks (10) for a given route path
+ * @param {function} callback invokes specified callback pointSender
  */
 function runRecordRoute(callback) {
   var argv = parseArgs(process.argv, {
@@ -115,15 +110,13 @@ function runRecordRoute(callback) {
       callback();
     });
     /**
-     * Constructs a function that asynchronously sends the given point and then
-     * delays sending its callback
      * @param {number} lat The latitude to send
      * @param {number} lng The longitude to send
      * @return {function(function)} The function that sends the point
      */
     function pointSender(lat, lng) {
       /**
-       * Sends the point, then calls the callback after a delay
+       * First send the point info, then initiate a brief delay, before invoking the final callback
        * @param {function} callback Called when complete
        */
       return function(callback) {
@@ -149,9 +142,8 @@ function runRecordRoute(callback) {
 }
 
 /**
- * Run the routeChat demo. Send some chat messages, and print any chat messages
- * that are sent from the server.
- * @param {function} callback Called when the demo is complete
+ * Associate geospatial information for the received client messages
+ * @param {function} callback gets invoked upon end of transaction
  */
 function runRouteChat(callback) {
   var call = client.routeChat();
@@ -209,9 +201,9 @@ if (require.main === module) {
   main();
 }
 
-//Commenting out since we don't want to run all demos
+
 /**
- * All rpc methods listed can be used here. 
+ * Uncomment to enable all available rpc methods. 
  * 
 /* 
 function main() {
