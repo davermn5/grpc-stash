@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.network :private_network, ip: "192.168.58.28"
 
-  config.vm.hostname = "grpc-stash"
+  config.vm.hostname = "grpc-stash" 
 
   config.vm.provider :virtualbox do |vb|
     vb.customize [
