@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-mkdir node/etc
+mkdir node/etc 
 
 bash -c 'echo "prefix=/usr/local" ' > node/etc/npmrc
 
