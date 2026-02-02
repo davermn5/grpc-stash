@@ -4,7 +4,7 @@
 ## Installation Instructions
 
 ### VirtualBox & Vagrant - For the Same Server (hosts both server and client)
-1. vagrant up 
+1. vagrant up  
 2. vagrant ssh
 3. cd /vagrant/app/routeguide/dynamic_codegen
 4. node /vagrant/app/routeguide/dynamic_codegen/route_guide_server.js
