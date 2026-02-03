@@ -5,7 +5,7 @@
 
 ### VirtualBox & Vagrant - For the Same Server (hosts both server and client)
 1. vagrant up  
-2. vagrant ssh
+2. vagrant ssh 
 3. cd /vagrant/app/routeguide/dynamic_codegen
 4. node /vagrant/app/routeguide/dynamic_codegen/route_guide_server.js
 5. (Then, in a separate terminal in the same project directory): vagrant ssh
