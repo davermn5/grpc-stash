@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :shell, :inline => " sudo apt-get update -y "
 
-  # Download NodeJS and NPM bundle:
+  # Download NodeJS and NPM bundle: 
   config.vm.provision :shell, :inline => " wget https://nodejs.org/dist/v14.21.3/node-v14.21.3-linux-x64.tar.xz "
   config.vm.provision :shell, :inline => " mkdir node && tar xvf node-v*.tar.?z --strip-components=1 -C ./node"
 
