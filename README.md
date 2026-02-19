@@ -1,7 +1,7 @@
 ![Static Badge](https://img.shields.io/badge/github-repo-blue?style=plastic&logo=github)  ![Static Badge](https://img.shields.io/badge/build-passing-brightgreen?style=plastic)
 
 
-## Installation Instructions
+## Installation Instructions 
 
 ### VirtualBox & Vagrant - For the Same Server (hosts both server and client)
 1. vagrant up  
